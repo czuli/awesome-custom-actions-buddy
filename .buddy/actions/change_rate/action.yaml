@@ -1,0 +1,37 @@
+name: "Change_Rate"
+inputs:
+  currency_from:
+    type: SELECT
+    default: "usd"
+    options:
+      - "usd"
+      - "eur"
+      - "gbp"
+      - "pln"
+  currency_to:
+    type: SELECT
+    default: "eur"
+    options:
+      - "usd"
+      - "eur"
+      - "gbp"
+      - "pln"
+execute_commands:
+- apt-get update && apt-get install -y curl jq
+- base_url="http://www.floatrates.com/daily/$currency_from.json"
+- if [ "$(curl -s $base_url)" = "404 Not Found" ] ; then printf "Error not found\n\n" ; 
+  else 
+  rate=$(curl -s $base_url | jq -r '.'$currency_to'.rate')
+  last_update_date=$(curl -s $base_url | jq -r '.'$currency_to'.date')
+  rate_round=$(printf "%.3f" $rate);
+  export rate_round;
+  export last_update_date;
+  fi;
+docker_image_name: "ubuntu"
+docker_image_tag: "latest"
+output:
+  variables:
+    currency_from:
+    currency_to:
+    rate_round:
+    last_update_date:
