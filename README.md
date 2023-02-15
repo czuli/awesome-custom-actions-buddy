@@ -4,7 +4,7 @@
 
 ## Documentation
 
-* Official Documentation about [Custom Actions](https://buddy.works/docs/pipelines/custom-actions) in Buddy.
+* Official Documentation about [Custom Actions in Buddy](https://buddy.works/docs/pipelines/custom-actions).
 * [How it works](https://buddy.works/blog/introducing-custom-actions)
 
 ## List of Custom Actions:
